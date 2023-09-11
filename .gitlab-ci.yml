@@ -5,7 +5,7 @@ stages:
   - package
 
 default:
-  image: node:20-buster-slim
+  image: node:14
 
 install_dependencies:
   stage: install
