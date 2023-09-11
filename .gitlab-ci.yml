@@ -1,8 +1,31 @@
-run_tests:
-    image : node:20-buster-slim
-    before_script: 
-      - apt-get update && apt-get install npm
-    script :
-      - cd frontend
-      - npm start
-      
+stages:
+  - install
+  - test
+  - build
+  - package
+
+default:
+  image: node:20-buster-slim
+
+.install_dependencies:
+  stage: install
+  script:
+    - npm install
+
+.unit-test:
+  stage: test
+  script:
+    - echo "unit test application"
+
+.integration-test:
+  stage: test
+  script:
+    - echo "integration test application"
+
+build-frontend:
+  stage: build
+  script:
+    - echo "building frontend application"
+    - cd frontend
+    - npm install
+    - npm run build
