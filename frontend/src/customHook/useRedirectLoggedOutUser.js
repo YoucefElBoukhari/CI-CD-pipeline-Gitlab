@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SET_LOGIN } from "../redux/features/auth/authSlice";
