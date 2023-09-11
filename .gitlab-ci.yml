@@ -1,0 +1,19 @@
+stages:
+  - install
+  - test
+  - build
+  - package
+
+default:
+  image: node:20-buster-slim
+
+.install_dependencies:
+  stage: install
+  script:
+    - npm install
+
+.unit-test:
+  stage: test
+  script:
+    - cd frontend
+    - npm start
