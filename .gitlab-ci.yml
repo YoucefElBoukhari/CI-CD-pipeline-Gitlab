@@ -2,10 +2,7 @@ stages:
   - install
   - test
   - build
-  
-
-before_script :
-  - cd frontend
+  - package
 
 default:
   image: node:20-buster-slim
@@ -18,10 +15,17 @@ default:
 .unit-test:
   stage: test
   script:
-    - echo "unit-test"
+    - echo "unit test application"
+
+.integration-test:
+  stage: test
+  script:
+    - echo "integration test application"
 
 build-frontend:
   stage: build
   script:
     - echo "building frontend application"
+    - cd frontend
+    - npm install
     - npm run build
