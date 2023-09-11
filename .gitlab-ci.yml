@@ -12,12 +12,12 @@ default:
   script:
     - npm install
 
-.unit-test:
+.unit-tests:
   stage: test
   script:
     - echo "unit test application"
 
-.integration-test:
+.integration-tests:
   stage: test
   script:
     - echo "integration test application"
