@@ -2,7 +2,7 @@ stages:
   - install
   - test
   - build
-  - package
+  
 
 before_script :
   - cd frontend
