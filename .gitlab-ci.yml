@@ -10,12 +10,12 @@ before_script :
 default:
   image: node:14
 
-install_dependencies:
+.install_dependencies:
   stage: install
   script:
     - npm install
 
-unit-test:
+.unit-test:
   stage: test
   script:
     - echo "unit-test"
