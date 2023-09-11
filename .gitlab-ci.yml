@@ -11,6 +11,8 @@ install_dependencies:
   stage: install
   script:
     - npm install
+    - npm install react-scripts --save-dev
+
 
 unit-test:
   stage: test
