@@ -28,14 +28,15 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
-    if (isLoggedIn === true) {
-      dispatch(getProduct(id));
-    }
+  if (isLoggedIn === true) {
+    dispatch(getProduct(id));
+  }
 
-    if (isError) {
-      console.log(message);
-    }
-  }, [isLoggedIn, isError, message, dispatch]);
+  if (isError) {
+    console.log(message);
+  }
+}, [isLoggedIn, isError, message, dispatch, id]); // Include 'id' in the dependency array
+
 
   return (
     <div className="product-detail">
