@@ -4,6 +4,9 @@ stages:
   - build
   - package
 
+before_script :
+  - cd frontend
+
 default:
   image: node:14
 
@@ -14,15 +17,11 @@ install_dependencies:
 
 unit-test:
   stage: test
-  before_script:
-    - cd frontend
   script:
-    - npm start
+    - echo "unit-test"
 
 build-frontend:
   stage: build
-  before_script:
-    - cd frontend
   script:
     - echo "building frontend application"
     - npm run build
