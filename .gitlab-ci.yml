@@ -11,9 +11,6 @@ install_dependencies:
   stage: install
   script:
     - npm install
-  artifacts:
-    paths:
-      - frontend/node_modules  # Cache the node_modules directory
 
 unit-test:
   stage: test
