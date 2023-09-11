@@ -8,7 +8,7 @@ before_script :
   - cd frontend
 
 default:
-  image: node:14
+  image: node:20-buster-slim
 
 .install_dependencies:
   stage: install
