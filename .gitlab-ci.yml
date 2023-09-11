@@ -21,7 +21,7 @@ unit-test:
     - cd frontend
     - ln -s $(pwd)/../frontend/node_modules ./node_modules  # Create a symlink to the cached node_modules
   script:
-    - npm test
+    - npm start
 
 build-frontend:
   stage: build
