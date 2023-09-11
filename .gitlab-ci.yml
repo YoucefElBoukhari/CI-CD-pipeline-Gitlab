@@ -11,13 +11,15 @@ install_dependencies:
   stage: install
   script:
     - npm install
-    - npm install react-scripts --save-dev
-
+  artifacts:
+    paths:
+      - frontend/node_modules  # Cache the node_modules directory
 
 unit-test:
   stage: test
   before_script:
     - cd frontend
+    - ln -s $(pwd)/../frontend/node_modules ./node_modules  # Create a symlink to the cached node_modules
   script:
     - npm test
 
@@ -25,6 +27,7 @@ build-frontend:
   stage: build
   before_script:
     - cd frontend
+    - ln -s $(pwd)/../frontend/node_modules ./node_modules  # Create a symlink to the cached node_modules
   script:
     - echo "building frontend application"
     - npm run build
