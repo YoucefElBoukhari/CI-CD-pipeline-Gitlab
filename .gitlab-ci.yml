@@ -8,8 +8,8 @@ default:
   image: node:20-buster-slim
 
 variables:
-    - IMAGE_NAME : elboukhariyoucef/my_stock_pro
-    - IMAGE_TAG : stock-pro-1.0
+    IMAGE_NAME : elboukhariyoucef/my_stock_pro
+    IMAGE_TAG : stock-pro-1.0
 
 install_dependencies:
   stage: install
