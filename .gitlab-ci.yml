@@ -2,7 +2,6 @@ stages:
   - install
   - test
   - build
-  - package
 
 default:
   image: node:20-buster-slim
