@@ -29,20 +29,18 @@ default:
     - cd frontend
     - npm install
     - npm run build
-build-image :
-  stage : build-image-docker
-  image : docker:24.0.6
-  services :
+build-image:
+  stage: build-image-docker
+  image: docker:24.0.6
+  services:
     - docker:24.0.6-dind
-  variables :
-    IMAGE_NAME : elboukhariyoucef/my_stock_pro
-    IMAGE_TAG : stock-pro-1.0
+  variables:
     DOCKER_TLS_CERTDIR: "/certs"
-  before_script :
-    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-  script :
+  before_script:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+  script:
     - docker build -t $IMAGE_NAME:$IMAGE_TAG .
-    - docker push $IMAGE_NAME:$IMAGE_TAG .
+    - docker push $IMAGE_NAME:$IMAGE_TAG
 
 
 
