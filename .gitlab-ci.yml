@@ -7,26 +7,22 @@ stages:
 default:
   image: node:20-buster-slim
 
-variables:
-    IMAGE_NAME : elboukhariyoucef/my_stock_pro
-    IMAGE_TAG : stock-pro-1.0
-
-install_dependencies:
+.install_dependencies:
   stage: install
   script:
     - npm install
 
-unit-test:
+.unit-test:
   stage: test
   script:
     - echo "unit test application"
 
-integration-test:
+.integration-test:
   stage: test
   script:
     - echo "integration test application"
 
-build-frontend:
+.build-frontend:
   stage: build
   script:
     - echo "building frontend application"
@@ -39,6 +35,8 @@ build-image :
   services :
     - docker:24.0.6-dind
   variables :
+    IMAGE_NAME : elboukhariyoucef/my_stock_pro
+    IMAGE_TAG : stock-pro-1.0
     DOCKER_TLS_CERTDIR: "/certs"
   before_script :
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
