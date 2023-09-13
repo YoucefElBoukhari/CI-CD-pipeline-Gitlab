@@ -22,7 +22,7 @@ integration-test:
   script:
     - echo "integration test application"
 
-build-frontend:
+build-front_end:
   stage: build
   script:
     - echo "building frontend application"
