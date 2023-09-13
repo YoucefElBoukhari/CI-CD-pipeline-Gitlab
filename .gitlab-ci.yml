@@ -32,9 +32,7 @@ build-frontend:
 build-backend:
   stage: build
   script:
-    - echo "building backend application"
-    - cd backend
-    - npm install
+    - cd backend  # Navigate to the backend directory
     - npm run build
 .build-image-frontend:
   stage: build-image
