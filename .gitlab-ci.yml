@@ -2,7 +2,7 @@ stages:
   - install
   - test
   - build
-  - build-image-docker
+  - build-image
 
 default:
   image: node:20-buster-slim
