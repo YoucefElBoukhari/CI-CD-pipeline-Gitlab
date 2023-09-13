@@ -31,12 +31,12 @@ integration-test:
     - npm run build
 build-backend:
   stage: build
-  before_script:
+  script:
     - npm uninstall -g babel
     - npm install --save-dev babel-cli
-  script:
-    - npm install
-    - npm run build
+    - npm install  # Install project dependencies
+    - npx babel backend -d dist  # Run the build command directly
+
 .build-image-frontend:
   stage: build-image
   image: docker:24.0.6
