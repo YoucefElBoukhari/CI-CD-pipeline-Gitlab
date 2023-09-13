@@ -35,6 +35,7 @@ build-backend:
     - npm uninstall -g babel
     - npm install --save-dev babel-cli
   script:
+    - npm install
     - npm run build
 .build-image-frontend:
   stage: build-image
