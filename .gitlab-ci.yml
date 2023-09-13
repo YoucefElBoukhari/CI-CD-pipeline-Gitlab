@@ -30,7 +30,7 @@ build-front_end:
     - npm install
     - npm run build
 build-image:
-  stage: build-image-docker
+  stage: build-image
   image: docker:24.0.6
   services:
     - docker:24.0.6-dind
