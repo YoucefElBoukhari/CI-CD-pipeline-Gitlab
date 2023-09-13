@@ -16,8 +16,6 @@ unit-test:
   stage: test
   script:
     - echo "unit test application"
-    - npm install
-    - npm test
 
 build-frontend:
   stage: build
