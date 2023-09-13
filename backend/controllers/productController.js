@@ -135,7 +135,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
         quantity,
         price,
         description,
-        image: Object.keys(fileData).length === 0 ? product?.image : fileData,
+        image: fileData ? fileData : (product ? product.image : undefined),
       },
       {
         new: true,
