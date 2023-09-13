@@ -11,8 +11,6 @@ install_dependencies:
   stage: install
   script:
     - npm install
-    - npm install --save-dev babel-cli
-
 
 unit-test:
   stage: test
@@ -33,6 +31,9 @@ integration-test:
     - npm run build
 build-backend:
   stage: build
+  before_script:
+    - npm uninstall -g babel
+    - npm install --save-dev babel-cli
   script:
     - cd backend  # Navigate to the backend directory
     - npm run build
