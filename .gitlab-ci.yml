@@ -40,8 +40,8 @@ build-image:
     - apk add --no-cache git  # Install Git
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
   script:
-    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
-    - docker push $IMAGE_NAME:$IMAGE_TAG
+    - docker build -t elboukhariyoucef/my_stock_pro:mystock .
+    - docker push elboukhariyoucef/my_stock_pro:mystock
 
 
 
