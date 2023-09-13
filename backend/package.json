@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "npx babel backend -d dist"
-  
+    "build": "npx babel backend -d dist"  
   },
   "keywords": [],
   "author": "",
