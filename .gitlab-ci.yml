@@ -22,14 +22,21 @@ integration-test:
   script:
     - echo "integration test application"
 
-build-front_end:
+build-frontend:
   stage: build
   script:
     - echo "building frontend application"
     - cd frontend
     - npm install
     - npm run build
-build-image:
+build-backend:
+  stage: build
+  script:
+    - echo "building backend application"
+    - cd backend
+    - npm install
+    - npm run build
+.build-image-frontend:
   stage: build-image
   image: docker:24.0.6
   services:
@@ -42,6 +49,11 @@ build-image:
   script:
     - docker build -t elboukhariyoucef/my_stock_pro:mystock .
     - docker push elboukhariyoucef/my_stock_pro:mystock
+.build-image-backend:
+  stage: build-image
+  script:
+    - echo "Build image docker for backend"
+
 
 
 
