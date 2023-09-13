@@ -11,7 +11,8 @@ install_dependencies:
   stage: install
   script:
     - npm install
-    - npm install --save-dev @babel/core @babel/cli
+    - npm install --save-dev babel-cli
+
 
 unit-test:
   stage: test
