@@ -35,7 +35,6 @@ build-backend:
     - npm uninstall -g babel
     - npm install --save-dev babel-cli
   script:
-    - cd backend  # Navigate to the backend directory
     - npm run build
 .build-image-frontend:
   stage: build-image
