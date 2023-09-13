@@ -11,6 +11,7 @@ install_dependencies:
   stage: install
   script:
     - npm install
+    - npm install --save-dev @babel/core @babel/cli
 
 unit-test:
   stage: test
@@ -22,7 +23,7 @@ integration-test:
   script:
     - echo "integration test application"
 
-build-frontend:
+.build-frontend:
   stage: build
   script:
     - echo "building frontend application"
