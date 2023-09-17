@@ -16,9 +16,13 @@ unit-test:
   stage: test
   before_script:
     - npm install
-  script:
-    - cd frontend
-    - echo "unit test"
+    - echo "Running unit tests"
+    - cd frontend  # Replace 'frontend' with the path to your frontend directory
+    - npm install
+    - npm test  # Run frontend tests
+    - cd ../backend  # Replace 'backend' with the path to your backend directory
+    - npm install
+    - npm test 
 
 build-frontend:
   stage: build
