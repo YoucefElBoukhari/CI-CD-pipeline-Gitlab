@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 
 
-RUN npm run backend
+RUN npm install express
 
 COPY . .
 
