@@ -14,6 +14,8 @@ install_dependencies:
 
 unit-test:
   stage: test
+  before_script:
+    - cd frontend
   script:
     - echo "unit test application"
 
@@ -32,7 +34,7 @@ build-backend:
     - npm install  # Install project dependencies
     - npx babel backend -d dist  # Run the build command directly
 
-build-image-frontend:
+.build-image-frontend:
   stage: build-image
   image: docker:24.0.6
   services:
@@ -45,7 +47,7 @@ build-image-frontend:
   script:
     - docker build -t elboukhariyoucef/my_stock_pro:mystock .
     - docker push elboukhariyoucef/my_stock_pro:mystock
-build-image-backend:
+.build-image-backend:
   stage: build-image
   script:
     - echo "Build image docker for backend"
