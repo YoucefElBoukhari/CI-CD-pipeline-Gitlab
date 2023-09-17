@@ -14,7 +14,7 @@ install_dependencies:
 
 unit-test:
   stage: test
-  before_script:
+  script:
     - npm install
     - echo "Running unit tests"
     - cd frontend  # Replace 'frontend' with the path to your frontend directory
