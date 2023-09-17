@@ -29,8 +29,6 @@ build-frontend:
     - npm run build
 build-backend:
   stage: build
-  before_script:
-    - cd backend
   script:
     - npm uninstall -g babel
     - npm install --save-dev babel-cli
