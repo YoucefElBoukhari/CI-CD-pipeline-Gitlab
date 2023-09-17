@@ -10,11 +10,11 @@ COPY package*.json ./
 # Install Node.js dependencies
 RUN npm install
 
-# Copy the rest of your application code to the container
+# Copy the rest of your backend application code to the container
 COPY . .
 
-# Expose the port your Express.js application will run on
-EXPOSE 3000
+# Expose the port your Express.js server will run on (replace 5000 with your actual port)
+EXPOSE 5000
 
-# Define the command to start your Express.js application
-CMD ["node", "app.js"]
+# Define the command to start your Express.js server
+CMD ["node", "server.js"]
