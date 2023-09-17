@@ -11,8 +11,9 @@ install_dependencies:
   stage: install
   script:
     - npm install
-    - npm install react-scripts@latest --save
-    - npm install react-scripts --save-dev
+    - npm install react-scripts@latest --save-dev  # Install react-scripts as a development dependency
+    - cd frontend
+    - npm install  # Install frontend project dependencies
 
 unit-test:
   stage: test
@@ -30,6 +31,8 @@ build-frontend:
     - npm run build
 build-backend:
   stage: build
+  before_script:
+    - cd backend
   script:
     - npm uninstall -g babel
     - npm install --save-dev babel-cli
