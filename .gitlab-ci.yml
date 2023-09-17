@@ -47,7 +47,7 @@ build-image-frontend:
   script:
     - docker build -t elboukhariyoucef/my_stock_pro:mystockFrontend .
     - docker push elboukhariyoucef/my_stock_pro:mystockFrontend
-build-image-backend:
+.build-image-backend:
   stage: build-image
   image: docker:24.0.6
   services:
