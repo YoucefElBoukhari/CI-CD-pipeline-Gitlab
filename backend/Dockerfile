@@ -1,16 +1,20 @@
-# syntax=docker/dockerfile:1.4
+# Use an official Node.js runtime as the base image
+FROM node:14
 
-FROM node:lts-buster-slim AS development
+# Set the working directory inside the container
+WORKDIR /app
 
-# Create app directory
-WORKDIR /usr/src/app
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
 
-COPY package.json /usr/src/app/package.json
-COPY package-lock.json /usr/src/app/package-lock.json
-RUN npm ci
+# Install Node.js dependencies
+RUN npm install
 
-COPY . /usr/src/app
+# Copy the rest of your backend application code to the container
+COPY . .
 
-EXPOSE 3000
+# Expose the port your Node.js backend application will run on
+EXPOSE 8080  # Replace with the actual port your app uses
 
-CMD [ "npm", "run", "dev" ]
+# Define the command to start your Node.js backend server
+CMD ["node", "server.js"]  
