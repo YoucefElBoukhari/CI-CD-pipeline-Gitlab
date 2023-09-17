@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose the port your Node.js backend application will run on
-EXPOSE 8080  # Replace with the actual port your app uses
+EXPOSE 3001 # Replace with the actual port your app uses
 
 # Define the command to start your Node.js backend server
 CMD ["node", "server.js"]  
