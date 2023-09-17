@@ -14,12 +14,24 @@ install_dependencies:
 
 unit-test:
   stage: test
+  cache:
+    - key:
+        files:
+          - node.modules
+      paths:
+        - ..
   script:
     - npm install
     - echo "Running unit tests"
 
 build-frontend:
   stage: build
+  cache:
+    - key:
+        files:
+          - node.modules
+      paths:
+        - .
   script:
     - echo "building frontend application"
     - cd frontend
@@ -27,6 +39,10 @@ build-frontend:
     - npm run build
 build-backend:
   stage: build
+  cache:
+    - key:
+        files:
+          - node.modules
   script:
     - npm uninstall -g babel
     - npm install --save-dev babel-cli
@@ -35,6 +51,10 @@ build-backend:
 
 build-image-frontend:
   stage: build-image
+  cache:
+    - key:
+        files:
+          - node.modules
   image: docker:24.0.6
   services:
     - docker:24.0.6-dind
@@ -49,6 +69,10 @@ build-image-frontend:
     - docker push elboukhariyoucef/my_stock_pro:mystockFrontend
 build-image-backend:
   stage: build-image
+  cache:
+    - key:
+        files:
+          - node.modules
   image: docker:24.0.6
   services:
     - docker:24.0.6-dind
