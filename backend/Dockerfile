@@ -1,20 +1,16 @@
-# Use an official Node.js runtime as the base image
-FROM node:20-buster-slim
+# syntax=docker/dockerfile:1.4
 
-# Set the working directory inside the container
-WORKDIR /server
+FROM node:lts-buster-slim AS development
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+# Create app directory
+WORKDIR /usr/src/app
 
-# Install Node.js dependencies
-RUN npm install
+COPY package.json /usr/src/app/package.json
+COPY package-lock.json /usr/src/app/package-lock.json
+RUN npm ci
 
-# Copy the rest of your backend application code to the container
-COPY . .
+COPY . /usr/src/app
 
-# Expose the port your Express.js server will run on (replace 5000 with your actual port)
-EXPOSE 5000
+EXPOSE 3000
 
-# Define the command to start your Express.js server
-CMD ["node", "server.js"]
+CMD [ "npm", "run", "dev" ]
