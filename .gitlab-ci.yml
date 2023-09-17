@@ -10,9 +10,6 @@ default:
 install_dependencies:
   stage: install
   script:
-    - npm install
-    - npm install react-scripts@latest --save-dev  # Install react-scripts as a development dependency
-    - cd frontend
     - npm install  # Install frontend project dependencies
 
 unit-test:
@@ -20,7 +17,8 @@ unit-test:
   before_script:
     - cd frontend
   script:
-    - npm test
+    - npm install --save-dev jest-junit
+    - npm run test
 
 build-frontend:
   stage: build
