@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 
 
-RUN npm cache clean --force
+RUN npm install -g npm
 RUN npm install
 
 COPY . .
