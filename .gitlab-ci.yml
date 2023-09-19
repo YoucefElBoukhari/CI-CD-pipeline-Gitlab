@@ -55,7 +55,7 @@ security_scan:
     - echo "Running SAST..."
     # Add your SAST commands here
 
-build-image-frontend:
+build-imageFrontend:
   stage: build-image
   cache:
     - key:
