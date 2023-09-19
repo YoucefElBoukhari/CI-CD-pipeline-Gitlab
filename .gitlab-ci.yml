@@ -52,8 +52,8 @@ build-backend:
 security_scan:
   stage: security
   script:
-    - echo "Running SAST..."
-    # Add your SAST commands here
+    - include:
+        - template: Jobs/SAST.gitlab-ci.yml
 
 build-imageFrontend:
   stage: build-image
