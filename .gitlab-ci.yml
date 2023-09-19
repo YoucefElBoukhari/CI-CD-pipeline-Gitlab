@@ -24,7 +24,9 @@ unit-test:
   script:
     - npm install
     - echo "Running unit tests"
-
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  
 build-frontend:
   stage: build
   cache:
