@@ -50,13 +50,7 @@ build-backend:
     - npm install --save-dev babel-cli
     - npm install  # Install project dependencies
     - npx babel backend -d dist  # Run the build command directly
-
-security_scan:
-  stage: security
-  trigger: # Use trigger instead of include
-    include:
-      - template: Jobs/SAST.gitlab-ci.yml
-
+    
 build-image_Frontend:
   stage: build-image
   cache:
