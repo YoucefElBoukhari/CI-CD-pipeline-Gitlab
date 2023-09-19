@@ -2,7 +2,7 @@ stages:
   - install
   - test
   - build
-  - security 
+  - security
   - build-image
 
 default:
@@ -16,11 +16,11 @@ install_dependencies:
 unit-test:
   stage: test
   cache:
-    - key:
-        files:
-          - node.modules
-      paths:
-        - ..
+    key:
+      files:
+        - node.modules
+    paths:
+      - ..
   script:
     - npm install
     - echo "Running unit tests"
@@ -28,38 +28,43 @@ unit-test:
 build-frontend:
   stage: build
   cache:
-    - key:
-        files:
-          - node.modules
-      paths:
-        - .
+    key:
+      files:
+        - node.modules
+    paths:
+      - .
   script:
-    - echo "building frontend application"
+    - echo "Building frontend application"
     - cd frontend
     - npm install
     - npm run build
+
 build-backend:
   stage: build
   cache:
-    - key:
-        files:
-          - node.modules
+    key:
+      files:
+        - node.modules
   script:
     - npm uninstall -g babel
     - npm install --save-dev babel-cli
     - npm install  # Install project dependencies
     - npx babel backend -d dist  # Run the build command directly
+
 security_scan:
   stage: security
   script:
     - include:
         - template: Jobs/SAST.gitlab-ci.yml
+
 build-image_Frontend:
   stage: build-image
   cache:
-    - key:
-        files:
-          - node.modules
+    key:
+      files:
+        - node.modules
+    paths:
+      - frontend/
   image: docker:24.0.6
   services:
     - docker:24.0.6-dind
@@ -72,12 +77,15 @@ build-image_Frontend:
   script:
     - docker build -t elboukhariyoucef/my_stock_pro:mystockFrontend .
     - docker push elboukhariyoucef/my_stock_pro:mystockFrontend
+
 build-image-backend:
   stage: build-image
   cache:
-    - key:
-        files:
-          - node.modules
+    key:
+      files:
+        - node.modules
+    paths:
+      - backend/
   image: docker:24.0.6
   services:
     - docker:24.0.6-dind
@@ -90,8 +98,3 @@ build-image-backend:
   script:
     - docker build -t elboukhariyoucef/my_stock_pro:mystockBackend .
     - docker push elboukhariyoucef/my_stock_pro:mystockBackend
-
-
-
-
-
