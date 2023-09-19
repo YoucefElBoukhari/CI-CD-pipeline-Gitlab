@@ -2,6 +2,7 @@ stages:
   - install
   - test
   - build
+  - security 
   - build-image
 
 default:
@@ -48,6 +49,11 @@ build-backend:
     - npm install --save-dev babel-cli
     - npm install  # Install project dependencies
     - npx babel backend -d dist  # Run the build command directly
+security_scan:
+  stage: security
+  script:
+    - echo "Running SAST..."
+    # Add your SAST commands here
 
 build-image-frontend:
   stage: build-image
