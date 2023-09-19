@@ -27,7 +27,7 @@ unit-test:
 include:
   - template: Security/SAST.gitlab-ci.yml
   
-build-frontend:
+build-Frontend:
   stage: build
   cache:
     key:
