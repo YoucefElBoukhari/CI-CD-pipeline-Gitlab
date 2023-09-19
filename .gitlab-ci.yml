@@ -53,8 +53,9 @@ build-backend:
 
 security_scan:
   stage: security
-  include:
-    - template: Jobs/SAST.gitlab-ci.yml
+  trigger: # Use trigger instead of include
+    include:
+      - template: Jobs/SAST.gitlab-ci.yml
 
 build-image_Frontend:
   stage: build-image
