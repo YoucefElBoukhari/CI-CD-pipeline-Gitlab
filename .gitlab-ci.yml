@@ -20,7 +20,7 @@ cache_node_modules:
   script:
     - echo "This job uses a cache."
   cache:
-    key: binaries-cache
+    key: node-cache
     paths:
       - node_modules/
 
