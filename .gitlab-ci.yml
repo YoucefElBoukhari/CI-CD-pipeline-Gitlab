@@ -37,7 +37,6 @@ build-Frontend:
   script:
     - echo "Building frontend application"
     - cd frontend
-    - npm install
     - npm run build
 
 build-Backend:
@@ -49,7 +48,6 @@ build-Backend:
   script:
     - npm uninstall -g babel
     - npm install --save-dev babel-cli
-    - npm install  # Install project dependencies
     - npx babel backend -d dist  # Run the build command directly
     
 build-Image_Frontend:
