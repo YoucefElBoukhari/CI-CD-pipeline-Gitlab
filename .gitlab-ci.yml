@@ -1,9 +1,7 @@
 stages:
   - install
-  - test
   - Cache
   - build
-  - security
   - build-image
 
 default:
@@ -37,7 +35,6 @@ build-Frontend:
   script:
     - echo "Building frontend application"
     - cd frontend
-    - npm install
     - npm run build
 
 build-Backend:
@@ -48,8 +45,7 @@ build-Backend:
         - node.modules
   script:
     - npm uninstall -g babel
-    - npm install --save-dev babel-cli
-    - npm install  # Install project dependencies
+    - npm install --save-dev babel-cli  # Install project dependencies
     - npx babel backend -d dist  # Run the build command directly
     
 build-Image_Frontend:
