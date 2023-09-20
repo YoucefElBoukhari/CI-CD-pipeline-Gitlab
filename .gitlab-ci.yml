@@ -1,8 +1,9 @@
 stages:
   - install
-  - Security
-  - cache
+  - test
+  - Cache
   - build
+  - security
   - build-image
 
 default:
@@ -16,22 +17,49 @@ install_dependencies:
 include:
   - template: Security/SAST.gitlab-ci.yml
 
-build_frontend:
+node-Modules-Cache:
+  stage: Cache
+  script:
+    - echo "This job uses a cache."
+  cache:
+    key: binaries-cache
+    paths:
+      - node_modules/
+
+build-Frontend:
   stage: build
+  cache:
+    key:
+      files:
+        - node.modules
+    paths:
+      - .
   script:
     - echo "Building frontend application"
     - cd frontend
+    - npm install
     - npm run build
 
-build_backend:
+build-Backend:
   stage: build
+  cache:
+    key:
+      files:
+        - node.modules
   script:
     - npm uninstall -g babel
-    - npm install --save-dev babel-cli  # Install project dependencies
+    - npm install --save-dev babel-cli
+    - npm install  # Install project dependencies
     - npx babel backend -d dist  # Run the build command directly
     
-build_image_frontend:
+build-Image_Frontend:
   stage: build-image
+  cache:
+    key:
+      files:
+        - node.modules
+    paths:
+      - frontend/
   image: docker:24.0.6
   services:
     - docker:24.0.6-dind
@@ -45,8 +73,14 @@ build_image_frontend:
     - docker build -t elboukhariyoucef/my_stock_pro:mystockFrontend .
     - docker push elboukhariyoucef/my_stock_pro:mystockFrontend
 
-build_image_backend:
+build-image-Backend:
   stage: build-image
+  cache:
+    key:
+      files:
+        - node.modules
+    paths:
+      - backend/
   image: docker:24.0.6
   services:
     - docker:24.0.6-dind
