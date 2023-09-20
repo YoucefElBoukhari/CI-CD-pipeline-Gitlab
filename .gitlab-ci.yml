@@ -15,14 +15,6 @@ install_dependencies:
 include:
   - template: Security/SAST.gitlab-ci.yml
 
-cache_node_modules:
-  stage: cache
-  script:
-    - echo "This job uses a cache."
-  cache:
-    key: node-cache
-    paths:
-      - node_modules/
 
 build_frontend:
   stage: build
