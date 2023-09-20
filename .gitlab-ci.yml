@@ -12,7 +12,7 @@ install_dependencies:
   stage: install
   script:
     - npm install  # Install frontend project dependencies
-    
+
 include:
   - template: Security/SAST.gitlab-ci.yml
 
@@ -23,7 +23,7 @@ build_frontend:
     - cd frontend
     - npm run build
 
-build_Backend:
+build_backend:
   stage: build
   script:
     - npm uninstall -g babel
@@ -59,4 +59,3 @@ build_image_backend:
   script:
     - docker build -t elboukhariyoucef/my_stock_pro:mystockBackend .
     - docker push elboukhariyoucef/my_stock_pro:mystockBackend
-
