@@ -1,8 +1,3 @@
-stages:
-  - install
-  - cache
-  - build
-  - build-image
 
 default:
   image: node:20-buster-slim
