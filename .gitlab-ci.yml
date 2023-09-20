@@ -1,3 +1,9 @@
+stages:
+  - install
+  - Security
+  - cache
+  - build
+  - build-image
 
 default:
   image: node:20-buster-slim
@@ -6,10 +12,11 @@ install_dependencies:
   stage: install
   script:
     - npm install  # Install frontend project dependencies
-
-include:
-  - template: Security/SAST.gitlab-ci.yml
-
+SAST :
+  stage: Security
+  script:
+    include:
+      - template: Security/SAST.gitlab-ci.yml
 
 build_frontend:
   stage: build
