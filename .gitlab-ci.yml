@@ -1,6 +1,6 @@
 stages:
   - install
-  - Cache
+  - cache
   - build
   - build-image
 
@@ -16,7 +16,7 @@ include:
   - template: Security/SAST.gitlab-ci.yml
 
 cache_node_modules:
-  stage: Cache
+  stage: cache
   script:
     - echo "This job uses a cache."
   cache:
