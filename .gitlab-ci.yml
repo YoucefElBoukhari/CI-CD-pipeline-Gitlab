@@ -13,20 +13,17 @@ install_dependencies:
   script:
     - npm install  # Install frontend project dependencies
 
-unit-test:
-  stage: test
-  cache:
-    key:
-      files:
-        - node.modules
-    paths:
-      - ..
-  script:
-    - npm install
-    - echo "Running unit tests"
 include:
   - template: Security/SAST.gitlab-ci.yml
-  
+
+cache:
+  script:
+    - echo "This job uses a cache."
+  cache:
+    key: binaries-cache
+    paths:
+      - node_modules/
+
 build-Frontend:
   stage: build
   cache:
