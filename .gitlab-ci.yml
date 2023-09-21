@@ -18,6 +18,13 @@ include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Container-Scanning.gitlab-ci.yml
 
+container_scanning:
+  stage: security
+  variables:
+    CS_IMAGE: elboukhariyoucef/my_stock_pro  # Specify your CS_IMAGE variable here
+  script:
+    - echo "Running container scanning job"
+
 node-Modules-cache:
   stage: Cache
   script:
