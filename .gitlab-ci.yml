@@ -29,12 +29,6 @@ node-Modules-Cache:
 
 build-Frontend:
   stage: build
-  cache:
-    key:
-      files:
-        - node.modules
-    paths:
-      - .
   script:
     - echo "Building frontend application"
     - cd frontend
@@ -42,10 +36,6 @@ build-Frontend:
 
 build-Backend:
   stage: build
-  cache:
-    key:
-      files:
-        - node.modules
   script:
     - npm uninstall -g babel
     - npm install --save-dev babel-cli
@@ -53,12 +43,6 @@ build-Backend:
     
 build-Image_Frontend:
   stage: build-image
-  cache:
-    key:
-      files:
-        - node.modules
-    paths:
-      - frontend/
   image: docker:24.0.6
   services:
     - docker:24.0.6-dind
@@ -74,12 +58,6 @@ build-Image_Frontend:
 
 build-image-Backend:
   stage: build-image
-  cache:
-    key:
-      files:
-        - node.modules
-    paths:
-      - backend/
   image: docker:24.0.6
   services:
     - docker:24.0.6-dind
