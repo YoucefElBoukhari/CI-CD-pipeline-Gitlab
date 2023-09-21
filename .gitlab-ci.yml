@@ -18,6 +18,10 @@ include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Container-Scanning.gitlab-ci.yml
 
+artifacts:
+  paths:
+    - gl-container-scanning-report.json
+
 container_scanning:
   stage: security
   variables:
