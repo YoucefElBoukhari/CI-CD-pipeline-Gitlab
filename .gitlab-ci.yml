@@ -21,7 +21,8 @@ include:
 container_scanning:
   stage: security
   variables:
-    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockBackend  # Specify your CS_IMAGE variable here
+    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockBackend
+    CS_DOCKERFILE_PATH: ./backend  # Specify your CS_IMAGE variable here
   script:
     - echo "Running container scanning job"
 
