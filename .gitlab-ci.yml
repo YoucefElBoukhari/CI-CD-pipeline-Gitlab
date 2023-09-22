@@ -21,7 +21,7 @@ include:
 
 container_scanning:
   variables:
-    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockFrontend
+    CS_IMAGE: elboukhariyoucef/my_stock_pro
 
 node-Modules-cache:
   stage: Cache
