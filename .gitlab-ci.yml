@@ -22,7 +22,6 @@ include:
 container_scanning:
   stage: scan
   script:
-    - cd frontend
     - echo "Running container scanning job"
   variables:
     CS_IMAGE: $CI_REGISTRY_IMAGE/elboukhariyoucef/my_stock_pro:mystockFrontend
