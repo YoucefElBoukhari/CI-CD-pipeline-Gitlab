@@ -89,7 +89,7 @@ build-Image_Frontend:
     - docker build -t elboukhariyoucef/my_stock_pro:mystockFrontend .
     - docker push elboukhariyoucef/my_stock_pro:mystockFrontend
 
-build-image-backend:
+build-image-Backend:
   stage: build-image
   cache:
     key:
