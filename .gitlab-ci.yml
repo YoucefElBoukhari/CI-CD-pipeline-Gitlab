@@ -19,10 +19,16 @@ include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Container-Scanning.gitlab-ci.yml
 
+
+
 container_scanning:
   stage: scan
   script:
     - echo "Running container scanning job"
+  artifacts:
+    paths:
+      - gl-container-scanning-report.json
+      - gl-dependency-scanning-report.json
   variables:
     CS_IMAGE: $CI_REGISTRY_IMAGE/elboukhariyoucef/my_stock_pro:mystockFrontend
     CS_DOCKERFILE_PATH: frontend/Dockerfile
