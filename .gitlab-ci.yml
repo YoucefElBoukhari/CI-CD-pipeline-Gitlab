@@ -18,7 +18,7 @@ install_dependencies:
 include:
   - template: Security/SAST.gitlab-ci.yml
   
-scan_frontend_image:
+scan_frontend_Image:
   stage: scan
   script:
     - echo "Running container scanning job for the frontend"
