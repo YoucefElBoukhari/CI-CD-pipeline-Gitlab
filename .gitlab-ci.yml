@@ -25,7 +25,8 @@ container_scanning:
     - cd frontend
     - echo "Running container scanning job"
   variables:
-    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockFrontend
+    CS_IMAGE: $CI_REGISTRY_IMAGE/elboukhariyoucef/my_stock_pro:mystockFrontend
+    CS_DOCKERFILE_PATH: frontend/Dockerfile
 
 node-Modules-cache:
   stage: Cache
