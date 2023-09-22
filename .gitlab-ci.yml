@@ -19,9 +19,20 @@ include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Container-Scanning.gitlab-ci.yml
 
-container_scanning:
+scan_frontend_image:
+  stage: scan
+  script:
+    - echo "Running container scanning job for the frontend"
   variables:
-    CS_IMAGE: elboukhariyoucef/my_stock_pro
+    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockFrontend
+
+scan_backend_image:
+  stage: scan
+  script:
+    - echo "Running container scanning job for the backtend"
+  variables:
+    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockBackend
+
 
 node-Modules-cache:
   stage: Cache
