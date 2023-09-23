@@ -18,7 +18,7 @@ install_dependencies:
 include:
   - template: Security/SAST.gitlab-ci.yml
 
-nodejs-sast:
+nodejs-scan-sast:
   variables:
     FAIL_NEVER: 1
 
