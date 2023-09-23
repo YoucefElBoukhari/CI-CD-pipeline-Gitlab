@@ -1,70 +1,13 @@
 stages:
-  - install
-  - test
-  - Cache
   - build
-  - security
-  - build-image
-  - scan
 
-install-D-Frontend:
-  stage: install
-  trigger:
-    include: frontend/.gitlab-ci.yml
-
-install-D-Backend:
-  stage: install
-  trigger:
-    include: backend/.gitlab-ci.yml
-
-test-Frontend:
-  stage: test
-  trigger:
-    include: frontend/.gitlab-ci.yml
-
-test-Backend:
-  stage: test
-  trigger:
-    include: backend/.gitlab-ci.yml
-
-Cache-Frontend:
-  stage: Cache
-  trigger:
-    include: frontend/.gitlab-ci.yml
-
-Cache-Backend:
-  stage: Cache
-  trigger:
-    include: backend/.gitlab-ci.yml
-
-build-Frontend:
+trigger-Frontend:
   stage: build
   trigger:
     include: frontend/.gitlab-ci.yml
 
-build-Backend:
+trigger-Backend:
   stage: build
   trigger:
     include: backend/.gitlab-ci.yml
-
-build-image-Frontend:
-  stage: build-image
-  trigger:
-    include: frontend/.gitlab-ci.yml
-
-build-image-Backend:
-  stage: build-image
-  trigger:
-    include: backend/.gitlab-ci.yml
-
-scan-image-Frontend:
-  stage: scan
-  trigger:
-    include: frontend/.gitlab-ci.yml
-
-scan-image-Backend:
-  stage: scan
-  trigger:
-    include: backend/.gitlab-ci.yml
-
 
