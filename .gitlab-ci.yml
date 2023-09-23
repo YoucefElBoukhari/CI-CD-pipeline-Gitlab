@@ -1,11 +1,11 @@
 stages:
   - install
-  - scan
   - test
   - Cache
   - build
   - security
   - build-image
+  - scan
 
 default:
   image: node:20-buster-slim
