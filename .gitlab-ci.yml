@@ -17,6 +17,9 @@ install_dependencies:
 
 include:
   - template: Security/SAST.gitlab-ci.yml
+    only:
+      - nodejs-scan-sast
+
 
 node-Modules-cache:
   stage: Cache
