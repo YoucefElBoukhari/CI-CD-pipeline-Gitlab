@@ -1,13 +1,109 @@
 stages:
+  - install
+  - test
+  - Cache
   - build
+  - security
+  - build-image
+  - scan
 
-trigger-Frontend:
+default:
+  image: node:20-buster-slim
+
+install_dependencies:
+  stage: install
+  script:
+    - npm install  # Install frontend project dependencies
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+
+node-Modules-cache:
+  stage: Cache
+  script:
+    - echo "This job uses a cache."
+  cache:
+    key: binaries-cache
+    paths:
+      - node_modules/
+
+build-Frontend:
   stage: build
-  trigger:
-    include: frontend/.gitlab-ci.yml
+  cache:
+    key:
+      files:
+        - node.modules
+    paths:
+      - .
+  script:
+    - echo "Building frontend application"
+    - cd frontend
+    - npm install
+    - npm run build
 
-trigger-Backend:
+build-backend:
   stage: build
-  trigger:
-    include: backend/.gitlab-ci.yml
+  cache:
+    key:
+      files:
+        - node.modules
+  script:
+    - npm uninstall -g babel
+    - npm install --save-dev babel-cli
+    - npm install  # Install project dependencies
+    - npx babel backend -d dist  # Run the build command directly
+    
+build-Image_Frontend:
+  stage: build-image
+  cache:
+    key:
+      files:
+        - node.modules
+    paths:
+      - frontend/
+  image: docker:24.0.6
+  services:
+    - docker:24.0.6-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - cd frontend
+    - apk add --no-cache git  # Install Git
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+  script:
+    - docker build -t elboukhariyoucef/my_stock_pro:mystockFrontend .
+    - docker push elboukhariyoucef/my_stock_pro:mystockFrontend
 
+build-image-Backend:
+  stage: build-image
+  cache:
+    key:
+      files:
+        - node.modules
+    paths:
+      - backend/
+  image: docker:24.0.6
+  services:
+    - docker:24.0.6-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - cd backend
+    - apk add --no-cache git  # Install Git
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+  script:
+    - docker build -t elboukhariyoucef/my_stock_pro:mystockBackend .
+    - docker push elboukhariyoucef/my_stock_pro:mystockBackend
+scan_frontend_Image:
+  stage: scan
+  script:
+    - echo "Running container scanning job for the frontend"
+  variables:
+    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockFrontend
+
+scan_backend_image:
+  stage: scan
+  script:
+    - echo "Running container scanning job for the backtend"
+  variables:
+    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockBackend
