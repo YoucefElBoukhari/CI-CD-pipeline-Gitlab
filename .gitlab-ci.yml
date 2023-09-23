@@ -17,21 +17,6 @@ install_dependencies:
 
 include:
   - template: Security/SAST.gitlab-ci.yml
-  
-scan_frontend_Image:
-  stage: scan
-  script:
-    - echo "Running container scanning job for the frontend"
-  variables:
-    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockFrontend
-
-scan_backend_image:
-  stage: scan
-  script:
-    - echo "Running container scanning job for the backtend"
-  variables:
-    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockBackend
-
 
 node-Modules-cache:
   stage: Cache
@@ -109,3 +94,16 @@ build-image-Backend:
   script:
     - docker build -t elboukhariyoucef/my_stock_pro:mystockBackend .
     - docker push elboukhariyoucef/my_stock_pro:mystockBackend
+scan_frontend_Image:
+  stage: scan
+  script:
+    - echo "Running container scanning job for the frontend"
+  variables:
+    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockFrontend
+
+scan_backend_image:
+  stage: scan
+  script:
+    - echo "Running container scanning job for the backtend"
+  variables:
+    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockBackend
