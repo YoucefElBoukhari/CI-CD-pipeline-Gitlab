@@ -24,7 +24,6 @@ include:
 variables:
   SAST_EXCLUDED_ANALYZERS: "spotbugs"
 
-
 node-modules-cache:
   stage: Cache
   script:
@@ -34,7 +33,7 @@ node-modules-cache:
     paths:
       - node_modules/
 
-build-frontend:
+build-Frontend:
   stage: build
   cache:
     key:
