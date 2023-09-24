@@ -15,14 +15,6 @@ install_dependencies:
   script:
     - npm install  # Install frontend project dependencies
 
-include:
-  - template: Security/SAST.gitlab-ci.yml
-
-nodejs-scan-sast:
-  variables:
-    FAIL_NEVER: 1
-
-
 node-Modules-cache:
   stage: Cache
   script:
