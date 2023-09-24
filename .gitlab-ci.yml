@@ -23,7 +23,7 @@ include:
     variables:
       NODEJS_SCAN: "true"
 
-sast:
+test:
   stage: test
   script:
     - echo "Running Node.js SAST scan"
