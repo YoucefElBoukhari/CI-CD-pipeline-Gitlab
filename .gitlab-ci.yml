@@ -7,6 +7,9 @@ stages:
   - build-image
   - scan
 
+variables:
+  SAST_IMAGE_SUFFIX: '-fips'
+
 default:
   image: node:20-buster-slim
 
@@ -15,26 +18,8 @@ install_dependencies:
   script:
     - npm install  # Install frontend project dependencies
 
-variables:
-  REPORT_FILENAME: gl-sast-report.json
-  MAX_IMAGE_SIZE_MB: 225
-  MAX_SCAN_DURATION_SECONDS: 100
-
 include:
-  - https://gitlab.com/gitlab-org/security-products/ci-templates/raw/master/includes-dev/analyzer.yml
-  - project: 'gitlab-org/security-products/ci-templates'
-    ref: 'master'
-    file: '/includes-dev/upsert-git-tag.yml'
-
-integration-test:
-  image:
-    name: registry.gitlab.com/gitlab-org/security-products/analyzers/integration-test:stable
-  services:
-    - docker:20.10-dind
-  variables:
-    TMP_IMAGE: $CI_REGISTRY_IMAGE/tmp:$CI_COMMIT_SHA$IMAGE_TAG_SUFFIX
-  script:
-    - rspec -f d
+  - template: Security/SAST.gitlab-ci.yml
 
 node-Modules-cache:
   stage: Cache
