@@ -34,7 +34,7 @@ node-modules-cache:
     paths:
       - node_modules/
 
-build-frontend:
+build-Frontend:
   stage: build
   cache:
     key:
