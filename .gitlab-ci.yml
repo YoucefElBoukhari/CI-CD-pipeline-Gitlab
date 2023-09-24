@@ -20,15 +20,9 @@ install_Dependencies:
 
 include:
   - template: Security/SAST.gitlab-ci.yml
-    variables:
-      NODEJS_SCAN: "true"
 
-test:
-  stage: test
-  script:
-    - echo "Running Node.js SAST scan"
-  only:
-    - nodejs-scan-sast
+variables:
+  SAST_EXCLUDED_ANALYZERS: "spotbugs"
 
 
 node-modules-cache:
