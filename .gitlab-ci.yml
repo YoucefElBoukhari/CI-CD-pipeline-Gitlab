@@ -72,14 +72,17 @@ build-Image_frontend:
     - docker:24.0.6-dind
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
-    DOCKER_HOST: "tcp://localhost:2375"  # Explicitly specify the Docker daemon host
+    DOCKER_HOST: "tcp://docker:24.0.6-dind:2375"  # Explicitly specify the Docker daemon host
   before_script:
     - cd frontend
     - apk add --no-cache git  # Install Git
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
   script:
-    - docker build -t elboukhariyoucef/my_stock_pro:mystockFrontend .
-    - docker push elboukhariyoucef/my_stock_pro:mystockFrontend
+  - echo "Docker host: $DOCKER_HOST"
+  - docker info  # Check Docker daemon info
+  - docker build -t elboukhariyoucef/my_stock_pro:mystockFrontend .
+  - docker push elboukhariyoucef/my_stock_pro:mystockFrontend
+
 
 .build-image-Backend:
   stage: build-image
@@ -108,7 +111,7 @@ scan_frontend_Image:
   variables:
     CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockFrontend
 
-scan_backend_image:
+.scan_backend_image:
   stage: scan
   script:
     - echo "Running container scanning job for the backtend"
