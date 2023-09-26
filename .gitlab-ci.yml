@@ -72,7 +72,7 @@ build-Image_frontend:
     - docker:24.0.6-dind
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
-    DOCKER_HOST: "tcp://192.168.11.128"  # Explicitly specify the Docker daemon host
+    DOCKER_HOST: "tcp://localhost:2375"  # Explicitly specify the Docker daemon host
   before_script:
     - cd frontend
     - apk add --no-cache git  # Install Git
@@ -80,7 +80,6 @@ build-Image_frontend:
   script:
     - docker build -t elboukhariyoucef/my_stock_pro:mystockFrontend .
     - docker push elboukhariyoucef/my_stock_pro:mystockFrontend
-
 
 .build-image-Backend:
   stage: build-image
