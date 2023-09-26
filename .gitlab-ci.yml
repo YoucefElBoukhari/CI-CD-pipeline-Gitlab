@@ -82,7 +82,7 @@ build-image-frontend:
   - docker build -t "$DOCKER_USER"/my_stock_pro:mystockFrontend .
   - docker push "$DOCKER_USER"/my_stock_pro:mystockFrontend
 
-.build-image-Backend:
+.build-image-backend:
   stage: build-image
   cache:
     key:
