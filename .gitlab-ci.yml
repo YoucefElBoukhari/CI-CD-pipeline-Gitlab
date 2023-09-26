@@ -59,7 +59,7 @@ install_Dependencies:
     - npm install  # Install project dependencies
     - npx babel backend -d dist  # Run the build command directly
     
-build-Image-frontend:
+build-image-frontend:
   stage: build-image
   cache:
     key:
@@ -78,11 +78,9 @@ build-Image-frontend:
     - apk add --no-cache git  # Install Git
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
   script:
-  - echo "Docker host: $DOCKER_HOST"
   - docker info  # Check Docker daemon info
   - docker build -t elboukhariyoucef/my_stock_pro:mystockFrontend .
   - docker push elboukhariyoucef/my_stock_pro:mystockFrontend
-
 
 .build-image-Backend:
   stage: build-image
