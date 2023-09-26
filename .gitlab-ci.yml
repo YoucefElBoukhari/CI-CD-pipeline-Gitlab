@@ -59,7 +59,7 @@ install_Dependencies:
     - npm install  # Install project dependencies
     - npx babel backend -d dist  # Run the build command directly
     
-build-Image_frontend:
+build-Image-frontend:
   stage: build-image
   cache:
     key:
