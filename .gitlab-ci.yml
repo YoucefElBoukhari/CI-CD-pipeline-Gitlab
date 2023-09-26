@@ -13,7 +13,7 @@ variables:
 default:
   image: node:20-buster-slim
 
-install_dependencies:
+install_Dependencies:
   stage: install
   script:
     - npm install  # Install frontend project dependencies
