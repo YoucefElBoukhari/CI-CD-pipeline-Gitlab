@@ -18,13 +18,13 @@ install_Dependencies:
   script:
     - npm install  # Install frontend project dependencies
 
-include:
+.include:
   - template: Security/SAST.gitlab-ci.yml
 
-variables:
+.variables:
   SAST_EXCLUDED_ANALYZERS: "spotbugs"
 
-node-modules-Cache:
+.node-modules-Cache:
   stage: Cache
   script:
     - echo "This job uses a cache."
@@ -33,7 +33,7 @@ node-modules-Cache:
     paths:
       - node_modules/
 
-build-Frontend:
+.build-Frontend:
   stage: build
   cache:
     key:
@@ -47,7 +47,7 @@ build-Frontend:
     - npm install
     - npm run build
 
-build-backend:
+.build-backend:
   stage: build
   cache:
     key:
@@ -72,6 +72,7 @@ build-Image_frontend:
     - docker:24.0.6-dind
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
+    DOCKER_HOST: "tcp://192.168.11.128"  # Explicitly specify the Docker daemon host
   before_script:
     - cd frontend
     - apk add --no-cache git  # Install Git
@@ -80,7 +81,8 @@ build-Image_frontend:
     - docker build -t elboukhariyoucef/my_stock_pro:mystockFrontend .
     - docker push elboukhariyoucef/my_stock_pro:mystockFrontend
 
-build-image-Backend:
+
+.build-image-Backend:
   stage: build-image
   cache:
     key:
