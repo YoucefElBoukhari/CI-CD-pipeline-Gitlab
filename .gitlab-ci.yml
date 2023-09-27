@@ -61,12 +61,6 @@ install_Dependencies:
     
 build-image-frontend:
   stage: build-image
-  cache:
-    key:
-      files:
-        - node.modules
-    paths:
-      - frontend/
   image: docker:24.0.6-dind
   services:
     - docker:24.0.6-dind
@@ -74,11 +68,10 @@ build-image-frontend:
     DOCKER_TLS_CERTDIR: "/certs"
   before_script:
     - cd frontend
-    - apk add --no-cache git  # Install Git
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
   script:
-  - docker build -t "$DOCKER_USER"/my_stock_pro:mystockFrontend .
-  - docker push "$DOCKER_USER"/my_stock_pro:mystockFrontend
+  - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockFrontend .
+  - docker push "$REGISTRY_USER"/my_stock_pro:mystockFrontend
 
 .build-image-backend:
   stage: build-image
