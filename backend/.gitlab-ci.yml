@@ -17,6 +17,8 @@ install_Dependencies:
   stage: install
   script:
     - npm install  # Install frontend project dependencies
+  tags:
+    - pipeline
 
 include:
   - template: Security/SAST.gitlab-ci.yml
@@ -32,6 +34,8 @@ node-Modules-Cache:
     key: binaries-cache
     paths:
       - node_modules/
+  tags:
+    - pipeline
 
 build-backend:
   stage: build
@@ -44,6 +48,8 @@ build-backend:
     - npm install --save-dev babel-cli
     - npm install  # Install project dependencies
     - npx babel backend -d dist  # Run the build command directly
+  tags:
+    - pipeline
 
 build-image-backend:
   stage: build-image
@@ -60,6 +66,8 @@ build-image-backend:
   script:
     - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockBackend .
     - docker push "$REGISTRY_USER"/my_stock_pro:mystockBackend
+  tags:
+    - pipeline
     
 scan_backend_image:
   stage: scan
@@ -67,3 +75,6 @@ scan_backend_image:
     - echo "Running container scanning job for the backtend"
   variables:
     CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockBackend
+  tags:
+    - pipeline
+
