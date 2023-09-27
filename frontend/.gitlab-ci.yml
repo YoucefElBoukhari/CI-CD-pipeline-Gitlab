@@ -18,13 +18,13 @@ install_Dependencies:
   script:
     - npm install  # Install frontend project dependencies
 
-.include:
+include:
   - template: Security/SAST.gitlab-ci.yml
 
-.variables:
+variables:
   SAST_EXCLUDED_ANALYZERS: "spotbugs"
 
-.node-Modules-Cache:
+node-Modules-Cache:
   stage: Cache
   script:
     - echo "This job uses a cache."
@@ -33,7 +33,7 @@ install_Dependencies:
     paths:
       - node_modules/
 
-.build-frontend:
+build-frontend:
   stage: build
   cache:
     key:
