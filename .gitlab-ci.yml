@@ -61,9 +61,9 @@ install_Dependencies:
     
 build-image-Frontend:
   stage: build-image
-  image: docker:dind
+  image: docker:24.0.6-dind
   services:
-    - name: docker:dind
+    - name: docker:24.0.6-dind
       alias: docker
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
@@ -71,9 +71,11 @@ build-image-Frontend:
     - cd frontend
     - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
   script:
-    - docker build -t elboukhariyoucef/my_stock_pro:myfrontend .
-    - docker push elboukhariyoucef/my_stock_pro:myfrontend
-
+    - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockFrontend .
+    - docker push "$REGISTRY_USER"/my_stock_pro:mystockFrontend
+  dns:
+    - 8.8.8.8  # Use Google DNS server, you can replace it with your preferred DNS server
+    
 .build-image-backend:
   stage: build-image
   cache:
