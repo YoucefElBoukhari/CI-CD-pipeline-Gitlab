@@ -66,7 +66,7 @@ build-image-Frontend:
     - name: docker:24.0.6-dind
       alias: docker
   variables:
-    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_HOST: tcp://127.0.0.1/
     DOCKER_TLS_CERTDIR: ""
   before_script:
     - cd frontend
