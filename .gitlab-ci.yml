@@ -33,7 +33,7 @@ install_dependencies:
     paths:
       - node_modules/
 
-.build-Frontend:
+.build-frontend:
   stage: build
   cache:
     key:
