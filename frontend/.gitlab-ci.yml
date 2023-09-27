@@ -35,8 +35,15 @@ node-Modules-Cache:
 
 build-frontend:
   stage: build
+  cache:
+    key:
+      files:
+        - node.modules
+    paths:
+      - .
   script:
     - echo "Building frontend application"
+    - cd frontend
     - npm install
     - npm run build
 
