@@ -71,11 +71,22 @@ build-image-Frontend:
     - cd frontend
     - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
   script:
+    - |
+      docker run \
+        --rm \
+        --dns 8.8.8.8  # Replace with your preferred DNS server
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        -v /certs/client:/certs/client \
+        -e DOCKER_TLS_CERTDIR=/certs/client \
+        -e DOCKER_HOST=tcp://docker:2376 \
+        -e DOCKER_TLS_VERIFY=1 \
+        -e DOCKER_CERT_PATH=/certs/client \
+        -e DOCKER_API_VERSION=1.24 \
+        "$REGISTRY_USER"/my_stock_pro:mystockFrontend
     - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockFrontend .
     - docker push "$REGISTRY_USER"/my_stock_pro:mystockFrontend
-  dns:
-    - 8.8.8.8  # Use Google DNS server, you can replace it with your preferred DNS server
-    
+  
+
 .build-image-backend:
   stage: build-image
   cache:
