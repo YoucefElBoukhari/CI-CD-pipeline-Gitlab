@@ -67,18 +67,16 @@ build-image-frontend:
         - node.modules
     paths:
       - frontend/
-  image: docker:24.0.6
+  image: docker:24.0.6-dind
   services:
     - docker:24.0.6-dind
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
-    DOCKER_HOST: "tcp://localhost:2375"  # Explicitly specify the Docker daemon host
   before_script:
     - cd frontend
     - apk add --no-cache git  # Install Git
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
   script:
-  - docker info  # Check Docker daemon info
   - docker build -t "$DOCKER_USER"/my_stock_pro:mystockFrontend .
   - docker push "$DOCKER_USER"/my_stock_pro:mystockFrontend
 
