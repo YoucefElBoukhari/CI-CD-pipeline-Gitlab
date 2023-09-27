@@ -1,4 +1,4 @@
-trigger_job_Frontend:
+trigger_job_frontend:
   trigger:
     include:
       - local: frontend/.gitlab-ci.yml
