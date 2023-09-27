@@ -61,9 +61,9 @@ install_Dependencies:
     
 build-image-Frontend:
   stage: build-image
-  image: docker:24.0.6-dind
+  image: docker:dind
   services:
-    - name: docker:24.0.6-dind
+    - name: docker:dind
       alias: docker
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
@@ -71,8 +71,8 @@ build-image-Frontend:
     - cd frontend
     - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
   script:
-    - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockFrontend .
-    - docker push "$REGISTRY_USER"/my_stock_pro:mystockFrontend
+    - docker build -t elboukhariyoucef/my_stock_pro:myfrontend .
+    - docker push elboukhariyoucef/my_stock_pro:myfrontend
 
 .build-image-backend:
   stage: build-image
