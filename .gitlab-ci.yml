@@ -59,7 +59,7 @@ install_Dependencies:
     - npm install  # Install project dependencies
     - npx babel backend -d dist  # Run the build command directly
     
-build-image-frontend:
+build-image-Frontend:
   stage: build-image
   image: docker:24.0.6-dind
   services:
