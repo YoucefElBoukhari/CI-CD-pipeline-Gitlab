@@ -18,13 +18,13 @@ install_Dependencies:
   script:
     - npm install  # Install frontend project dependencies
 
-.include:
+include:
   - template: Security/SAST.gitlab-ci.yml
 
-.variables:
+variables:
   SAST_EXCLUDED_ANALYZERS: "spotbugs"
 
-.node-Modules-Cache:
+node-Modules-Cache:
   stage: Cache
   script:
     - echo "This job uses a cache."
@@ -33,7 +33,7 @@ install_Dependencies:
     paths:
       - node_modules/
 
-.build-frontend:
+build-frontend:
   stage: build
   cache:
     key:
@@ -47,7 +47,7 @@ install_Dependencies:
     - npm install
     - npm run build
 
-.build-backend:
+build-backend:
   stage: build
   cache:
     key:
@@ -74,28 +74,22 @@ build-image-Frontend:
   script:
     - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockFrontend .
     - docker push "$REGISTRY_USER"/my_stock_pro:mystockFrontend
-  
 
-.build-image-backend:
+build-image-backend:
   stage: build-image
-  cache:
-    key:
-      files:
-        - node.modules
-    paths:
-      - backend/
-  image: docker:24.0.6
+  image: docker:24.0.6-dind
   services:
-    - docker:24.0.6-dind
+    - name: docker:24.0.6-dind
+      alias: docker
   variables:
-    DOCKER_TLS_CERTDIR: "/certs"
+    DOCKER_HOST : tcp://172.17.0.1:2375
+    DOCKER_TLS_CERTDIR: ""
   before_script:
     - cd backend
-    - apk add --no-cache git  # Install Git
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+    - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
   script:
-    - docker build -t elboukhariyoucef/my_stock_pro:mystockBackend .
-    - docker push elboukhariyoucef/my_stock_pro:mystockBackend
+    - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockBackend .
+    - docker push "$REGISTRY_USER"/my_stock_pro:mystockBackend
 scan_frontend_Image:
   stage: scan
   script:
@@ -103,7 +97,7 @@ scan_frontend_Image:
   variables:
     CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockFrontend
 
-.scan_backend_image:
+scan_backend_image:
   stage: scan
   script:
     - echo "Running container scanning job for the backtend"
