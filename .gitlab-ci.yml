@@ -47,7 +47,7 @@ install_Dependencies:
     - npm install
     - npm run build
 
-.build-Backend:
+.build-backend:
   stage: build
   cache:
     key:
