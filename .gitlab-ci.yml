@@ -1,9 +1,105 @@
-frontend:
-  trigger:
-    include:
-      - local: frontend/.gitlab-ci.yml
+stages:
+  - install
+  - test
+  - Cache
+  - build
+  - security
+  - build-image
+  - scan
 
-Backend:
-  trigger:
-    include:
-      - local: backend/.gitlab-ci.yml
+variables:
+  SAST_IMAGE_SUFFIX: '-fips'
+
+default:
+  image: node:20-buster-slim
+
+install_Dependencies:
+  stage: install
+  script:
+    - npm install  # Install frontend project dependencies
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+
+variables:
+  SAST_EXCLUDED_ANALYZERS: "spotbugs"
+
+node-Modules-Cache:
+  stage: Cache
+  script:
+    - echo "This job uses a cache."
+  cache:
+    key: binaries-cache
+    paths:
+      - node_modules/
+
+build-frontend:
+  stage: build
+  cache:
+    key:
+      files:
+        - node.modules
+    paths:
+      - .
+  script:
+    - echo "Building frontend application"
+    - cd frontend
+    - npm install
+    - npm run build
+
+build-backend:
+  stage: build
+  cache:
+    key:
+      files:
+        - node.modules
+  script:
+    - npm uninstall -g babel
+    - npm install --save-dev babel-cli
+    - npm install  # Install project dependencies
+    - npx babel backend -d dist  # Run the build command directly
+    
+build-image-Frontend:
+  stage: build-image
+  image: docker:24.0.6-dind
+  services:
+    - name: docker:24.0.6-dind
+      alias: docker
+  variables:
+    DOCKER_HOST : tcp://172.17.0.1:2375
+    DOCKER_TLS_CERTDIR: ""
+  before_script:
+    - cd frontend
+    - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
+  script:
+    - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockFrontend .
+    - docker push "$REGISTRY_USER"/my_stock_pro:mystockFrontend
+
+build-image-backend:
+  stage: build-image
+  image: docker:24.0.6-dind
+  services:
+    - name: docker:24.0.6-dind
+      alias: docker
+  variables:
+    DOCKER_HOST : tcp://172.17.0.1:2375
+    DOCKER_TLS_CERTDIR: ""
+  before_script:
+    - cd backend
+    - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
+  script:
+    - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockBackend .
+    - docker push "$REGISTRY_USER"/my_stock_pro:mystockBackend
+scan_frontend_Image:
+  stage: scan
+  script:
+    - echo "Running container scanning job for the frontend"
+  variables:
+    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockFrontend
+
+scan_backend_image:
+  stage: scan
+  script:
+    - echo "Running container scanning job for the backtend"
+  variables:
+    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockBackend
