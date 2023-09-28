@@ -75,7 +75,7 @@ build-image-Frontend:
     - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockFrontend .
     - docker push "$REGISTRY_USER"/my_stock_pro:mystockFrontend
 
-build-image-backend:
+build-image-Backend:
   stage: build-image
   image: docker:24.0.6-dind
   services:
