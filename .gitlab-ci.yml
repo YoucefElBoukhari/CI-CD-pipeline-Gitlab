@@ -3,7 +3,7 @@ trigger_Job_frontend:
     include:
       - local: frontend/.gitlab-ci.yml
 
-trigger_Job_Backend:
+.trigger_Job_Backend:
   trigger:
     include:
       - local: backend/.gitlab-ci.yml
