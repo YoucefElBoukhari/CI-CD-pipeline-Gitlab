@@ -17,8 +17,6 @@ install_Dependencies:
   stage: install
   script:
     - npm install  # Install frontend project dependencies
-  tags:
-    - pipeline
 
 include:
   - template: Security/SAST.gitlab-ci.yml
@@ -34,8 +32,6 @@ node-Modules-Cache:
     key: binaries-cache
     paths:
       - node_modules/
-  tags:
-    - pipeline
 
 build-frontend:
   stage: build
@@ -50,8 +46,6 @@ build-frontend:
     - cd frontend
     - npm install
     - npm run build
-  tags:
-    - pipeline
 
 build-image-Frontend:
   stage: build-image
@@ -67,8 +61,6 @@ build-image-Frontend:
   script:
     - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockFrontend .
     - docker push "$REGISTRY_USER"/my_stock_pro:mystockFrontend
-  tags:
-    - pipeline
 
 scan_frontend_Image:
   stage: scan
@@ -76,5 +68,3 @@ scan_frontend_Image:
     - echo "Running container scanning job for the frontend"
   variables:
     CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockFrontend
-  tags:
-    - pipeline
