@@ -1,4 +1,4 @@
-Frontend:
+Front-end:
   trigger:
     include:
       - local: frontend/.gitlab-ci.yml
