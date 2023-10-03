@@ -24,7 +24,7 @@ include:
 variables:
   SAST_EXCLUDED_ANALYZERS: "spotbugs"
 
-node-Modules-Cache:
+Node-Modules-Cache:
   stage: Cache
   script:
     - echo "This job uses a cache."
