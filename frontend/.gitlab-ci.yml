@@ -1,0 +1,71 @@
+stages:
+  - install
+  - test
+  - Cache
+  - build
+  - security
+  - build-image
+  - scan
+
+variables:
+  SAST_IMAGE_SUFFIX: '-fips'
+
+default:
+  image: node:20-buster-slim
+
+install_Dependencies:
+  stage: install
+  script:
+    - npm install  # Install frontend project dependencies
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+
+variables:
+  SAST_EXCLUDED_ANALYZERS: "spotbugs"
+
+Node-Modules-Cache:
+  stage: Cache
+  script:
+    - echo "This job uses a cache."
+  cache:
+    key: binaries-cache
+    paths:
+      - node_modules/
+
+build-Frontend:
+  stage: build
+  cache:
+    key:
+      files:
+        - node.modules
+    paths:
+      - .
+  script:
+    - echo "Building frontend application"
+    - cd frontend
+    - npm install
+    - npm run build
+    
+build-image-Frontend:
+  stage: build-image
+  image: docker:24.0.6-dind
+  services:
+    - name: docker:24.0.6-dind
+      alias: docker
+  variables:
+    DOCKER_TLS_CERTDIR: ""
+  before_script:
+    - cd frontend
+    - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
+  script:
+    - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockFrontend .
+    - docker push "$REGISTRY_USER"/my_stock_pro:mystockFrontend
+
+scan_frontend_Image:
+  stage: scan
+  script:
+    - echo "Running container scanning job for the frontend"
+  variables:
+    CS_IMAGE: elboukhariyoucef/my_stock_pro:mystockFrontend
+
