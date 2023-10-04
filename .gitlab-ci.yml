@@ -1,6 +1,10 @@
-backend:
+Backend:
   trigger:
     include: backend/.gitlab-ci.yml
+  rules:
+    - if: '$TRIGGER_CONTEXT == "run backend"'
 Frontend:
   trigger:
     include: frontend/.gitlab-ci.yml
+  rules:
+    - if: '$TRIGGER_CONTEXT == "run frontend"'
