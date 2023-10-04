@@ -1,10 +1,24 @@
+stages:
+  - Cache
+
+Cache_NodeModules:
+  stage: Cache
+  script:
+    - echo "This job uses a cache."
+  cache:
+    key: binaries-cache
+    paths:
+      - node_modules/
+
 Backend:
   trigger:
     include: backend/.gitlab-ci.yml
   rules:
     - if: '$TRIGGER_CONTEXT == "run backend"'
+    
 Frontend:
   trigger:
     include: frontend/.gitlab-ci.yml
   rules:
     - if: '$TRIGGER_CONTEXT == "run frontend"'
+
