@@ -16,7 +16,7 @@ default:
 install_Dependencies:
   stage: install
   script:
-    - npm install  # Install frontend project dependencies
+    - npm install  
 
 include:
   - template: Security/SAST.gitlab-ci.yml
@@ -34,8 +34,6 @@ build-Frontend:
   stage: build
   script:
     - echo "Building frontend application"
-    - cd frontend
-    - npm install
     - npm run build
     
 build-image-Frontend:
@@ -47,7 +45,6 @@ build-image-Frontend:
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   before_script:
-    - cd frontend
     - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
   script:
     - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockFrontend .
