@@ -38,13 +38,14 @@ Build-backend:
   cache:
     key:
       files:
-        - node.modules
+        - node_modules
   script:
-    - npm uninstall -g babel
-    - npm install --save-dev babel-cli
+    - npm uninstall -g @babel/cli  # Remove the global Babel CLI if installed
+    - npm install --save-dev @babel/cli  # Install Babel CLI as a dev dependency
     - cd backend
     - npm install  # Install project dependencies
-    - npx babel backend -d dist  # Run the build command directly
+    - npx babel backend -d dist  # Run the Babel build command
+
     
 build-image-Backend:
   stage: build-image
