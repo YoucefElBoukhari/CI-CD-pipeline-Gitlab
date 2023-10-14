@@ -49,7 +49,7 @@ build-image-Frontend:
   before_script:
     - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
   script:
-    - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockFrontend .
+    - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockFrontend -f frontend/dockerfile .
     - docker push "$REGISTRY_USER"/my_stock_pro:mystockFrontend
 
 scan_frontend_Image:
