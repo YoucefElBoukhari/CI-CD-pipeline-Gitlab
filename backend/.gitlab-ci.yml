@@ -57,7 +57,7 @@ build-image-Backend:
     - cd backend
     - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
   script:
-    - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockBackend -f backend/Dockerfile .
+    - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockBackend .
     - docker push "$REGISTRY_USER"/my_stock_pro:mystockBackend
 
 scan_backend_image:
