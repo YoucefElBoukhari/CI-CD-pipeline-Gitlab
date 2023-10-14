@@ -42,6 +42,7 @@ Build-backend:
   script:
     - npm uninstall -g babel
     - npm install --save-dev babel-cli
+    - cd backend
     - npm install  # Install project dependencies
     - npx babel backend -d dist  # Run the build command directly
     
@@ -57,7 +58,7 @@ build-image-Backend:
     - cd backend
     - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
   script:
-    - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockBackend .
+    - docker build -t "$REGISTRY_USER"/my_stock_pro:mystockBackend -f backend/Dockerfile .
     - docker push "$REGISTRY_USER"/my_stock_pro:mystockBackend
 
 scan_backend_image:
