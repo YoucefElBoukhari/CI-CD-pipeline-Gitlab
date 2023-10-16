@@ -14,16 +14,16 @@ variables:
 default:
   image: node:20-buster-slim
 
-.install_Dependencies:
+install_Dependencies:
   stage: install
   script:
     - npm install  
 
-.include:
+include:
   - template: Security/SAST.gitlab-ci.yml
   - template: DAST.gitlab-ci.yml
 
-.Node-Modules-Cache:
+Node-Modules-Cache:
   stage: Cache
   script:
     - echo "This job uses a cache."
@@ -32,7 +32,7 @@ default:
     paths:
       - node_modules/
 
-.build-Frontend:
+build-Frontend:
   stage: build
   script:
     - echo "Building frontend application"
