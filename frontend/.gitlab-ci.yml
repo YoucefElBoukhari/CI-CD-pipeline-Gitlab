@@ -6,6 +6,7 @@ stages:
   - security
   - build-image
   - scan
+  - dast
 
 variables:
   SAST_IMAGE_SUFFIX: '-fips'
