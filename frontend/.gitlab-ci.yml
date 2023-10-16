@@ -9,6 +9,7 @@ stages:
 
 variables:
   SAST_IMAGE_SUFFIX: '-fips'
+  DAST_WEBSITE: https://stock-managment-frontend.vercel.app/
 
 default:
   image: node:20-buster-slim
@@ -20,6 +21,7 @@ default:
 
 .include:
   - template: Security/SAST.gitlab-ci.yml
+  - template: DAST.gitlab-ci.yml
 
 .Node-Modules-Cache:
   stage: Cache
